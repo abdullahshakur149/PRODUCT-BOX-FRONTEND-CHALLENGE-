@@ -1,12 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from './CartContext';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartCount } = useCart();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   return (
     <nav className="w-full bg-blue-700 text-white shadow">
@@ -29,7 +34,7 @@ export default function Navbar() {
                 </svg>
               </span>
               <span className="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full px-2 py-0.5 border border-white">
-                {cartCount}
+                {hasMounted ? cartCount : 0}
               </span>
             </Link>
           </div>
@@ -65,7 +70,7 @@ export default function Navbar() {
               </svg>
             </span>
             <span className="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full px-2 py-0.5 border border-white">
-              {cartCount}
+              {hasMounted ? cartCount : 0}
             </span>
           </Link>
         </div>

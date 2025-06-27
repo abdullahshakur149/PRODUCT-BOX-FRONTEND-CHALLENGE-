@@ -1,11 +1,20 @@
 'use client';
 
 import { useCart } from '../../components/CartContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CheckoutPage() {
   const { cart, removeFromCart, cartCount, clearCart } = useCart();
   const [checkedOut, setCheckedOut] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
 
   const handleCheckout = () => {
     clearCart();
