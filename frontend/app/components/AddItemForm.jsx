@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { addItem } from '@/app/utils/api';
 
 export default function AddItemForm() {
   const [name, setName] = useState('');
@@ -9,29 +10,24 @@ export default function AddItemForm() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage('');
-    try {
-      const res = await fetch('http://localhost:4000/items', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, price: Number(price), img }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'Failed to add item');
-      setMessage(data.message ? `Success: ${data.message}` : 'Item added successfully!');
-      setName('');
-      setPrice('');
-      setImg('');
-      setTimeout(() => setMessage(''), 2500);
-    } catch (err) {
-      setMessage(err.message || 'Error adding item');
-    } finally {
-      setLoading(false);
-    }
-  };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setMessage('');
+  try {
+    const data = await addItem({ name, price, img });
+    setMessage(data.message ? `Success: ${data.message}` : 'Item added successfully!');
+    setName('');
+    setPrice('');
+    setImg('');
+    setTimeout(() => setMessage(''), 2500);
+  } catch (err) {
+    setMessage(err.message || 'Error adding item');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded shadow p-6 flex flex-col gap-4 max-w-md mx-auto">
