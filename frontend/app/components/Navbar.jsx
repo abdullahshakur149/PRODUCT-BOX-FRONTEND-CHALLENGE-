@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useCart } from './CartContext';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cartCount } = useCart();
 
   return (
     <nav className="w-full bg-blue-700 text-white shadow">
@@ -19,14 +21,16 @@ export default function Navbar() {
             <Link href="/items" className="hover:underline underline-offset-4 transition">Items</Link>
             <Link href="/add-items" className="hover:underline underline-offset-4 transition">Add Item</Link>
             <Link href="/checkout" className="hover:underline underline-offset-4 transition">Checkout</Link>
-            {/* Cart Icon Placeholder */}
+            {/* Cart Icon */}
             <Link href="/checkout" className="relative ml-4">
               <span className="inline-block align-middle">
                 <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A1 1 0 007 17h10a1 1 0 00.95-.68L21 13M7 13V6a1 1 0 011-1h5a1 1 0 011 1v7" />
                 </svg>
               </span>
-              <span className="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full px-2 py-0.5 border border-white">0</span>
+              <span className="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full px-2 py-0.5 border border-white">
+                {cartCount}
+              </span>
             </Link>
           </div>
           {/* Mobile menu button */}
@@ -60,7 +64,9 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A1 1 0 007 17h10a1 1 0 00.95-.68L21 13M7 13V6a1 1 0 011-1h5a1 1 0 011 1v7" />
               </svg>
             </span>
-            <span className="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full px-2 py-0.5 border border-white">0</span>
+            <span className="absolute -top-2 -right-2 bg-yellow-400 text-blue-900 text-xs font-bold rounded-full px-2 py-0.5 border border-white">
+              {cartCount}
+            </span>
           </Link>
         </div>
       )}
