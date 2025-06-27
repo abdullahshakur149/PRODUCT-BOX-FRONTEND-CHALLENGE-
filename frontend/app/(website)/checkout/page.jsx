@@ -31,7 +31,7 @@ export default function CheckoutPage() {
           <ul className="divide-y divide-gray-200 mb-8">
             {cart.map((item, idx) => (
               <li key={idx} className="flex items-center gap-4 py-4">
-                <img src={item.img || '/randostore-hero.svg'} alt={item.name} className="w-20 h-20 object-contain rounded bg-gray-50" />
+                <img src={`http://localhost:4000/${item.img?.replace('./', '')}`} alt={item.name} className="w-20 h-20 object-contain rounded bg-gray-50" />
                 <div className="flex-1">
                   <h2 className="text-lg font-semibold text-gray-800">{item.name}</h2>
                   <p className="text-blue-700 font-bold">${item.price}</p>
