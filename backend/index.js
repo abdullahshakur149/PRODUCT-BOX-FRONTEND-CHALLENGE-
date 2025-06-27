@@ -5,12 +5,14 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('./lib/logger');
+var cors = require('cors');
 
 var items = require('./routes/items');
 
 var app = express();
 var log = logger(app);
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -36,7 +38,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 
 var server = app.listen(app.get('port'), function() {
     log.info('Express server listening on http://localhost:%d', server.address().port);

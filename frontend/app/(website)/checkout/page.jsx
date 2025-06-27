@@ -4,13 +4,12 @@ import { useCart } from '../../components/CartContext';
 import { useState } from 'react';
 
 export default function CheckoutPage() {
-  const { cart, removeFromCart, cartCount } = useCart();
+  const { cart, removeFromCart, cartCount, clearCart } = useCart();
   const [checkedOut, setCheckedOut] = useState(false);
 
   const handleCheckout = () => {
-    localStorage.removeItem('cart');
+    clearCart();
     setCheckedOut(true);
-    window.location.reload(); // reload to update context
   };
 
   if (checkedOut) {
